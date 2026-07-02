@@ -60,11 +60,39 @@ wishlistAddBtn.addEventListener('click', function() {
     removeBtn.addEventListener('click', function() {
         li.remove();
     });
-    
+
     li.appendChild(removeBtn);
     li.appendChild(span);
 
 
     wishlist.appendChild(li);
     wishlistInput.value = ""; // Clear the input field after adding     
+});
+
+//feature 4 : Form handling and validation
+const contactForm = document.getElementById('contact-form');
+const nameInput = document.getElementById('name-input');
+const emailInput = document.getElementById('email-input');
+const messageInput = document.getElementById('message-input');
+const formFeedback = document.getElementById('form-feedback');
+
+contactForm.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission  
+
+    const nameValue = nameInput.value.trim();
+    const emailValue = emailInput.value.trim();
+    const messageValue = messageInput.value.trim();
+
+    // Basic validation
+    if (nameValue === "" || emailValue === "" || messageValue === "") {
+        formFeedback.textContent = "Please fill in all fields.";
+        formFeedback.className = "error";
+        formFeedback.style.color = "red";
+        return;
+    }
+    formFeedback.textContent = "Message sent successfully!";
+    formFeedback.className = "success";
+    formFeedback.style.color = "green";
+    contactForm.reset();
+    return;
 });

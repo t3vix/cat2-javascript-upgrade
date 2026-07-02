@@ -108,12 +108,26 @@
         <section id="contact-us">
             <h2 class="section-heading">Contact Us</h2>
             <p>If you have any <em><strong>questions</strong></em> or would like to <em><strong>discuss a project</strong></em>, please feel free to <strong>contact us:</strong></p>
-            <ul>
-                <li>Email: contact@orbit_solutions.com</li>
-                <li>Phone: +1 (123) 456-7890</li>
-                <li>Address: 123 Main Street, California, USA</li>
-            </ul>
+            <form id="contact-form">
+                <div>
+                <label for="name-input">Name:</label>
+                <input type="text" id="name-input" name="name" required>
+                </div>
+
+                <div>
+                <label for="email-input">Email:</label>
+                <input type="email" id="email-input" name="email" required>
+                </div>
+
+                <div>
+                <label for="message-input">Message:</label>
+                <textarea id="message-input" rows="4" name="message" required></textarea>
+                </div>
+                <button type="submit">Send</button>
+                <p id="form-feedback"></p>
+            </form>
         </section>
+        
         <section id="wishlist-section">
             <h2 class="section-heading">Build Your Package</h2>
             <p>Add services you're interested in to your custom package list.</p>
