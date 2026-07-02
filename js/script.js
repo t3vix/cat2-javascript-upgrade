@@ -35,39 +35,39 @@ services.forEach(service => {
 });
 
 // Feature 3 : Wishlist Functionality
-const wishlistInput = document.getElementById('wishlist-input');
-const wishlistAddBtn = document.getElementById('wishlist-add-btn');
-const wishlist = document.getElementById('wishlist');
+//const wishlistInput = document.getElementById('wishlist-input');
+//const wishlistAddBtn = document.getElementById('wishlist-add-btn');
+//const wishlist = document.getElementById('wishlist');
 
-wishlistAddBtn.addEventListener('click', function() {
-    const itemText  = wishlistInput.value.trim();
-    if (itemText === "") {
-        return; // Do not add empty items
-    }
+//wishlistAddBtn.addEventListener('click', function() {
+    //const itemText  = wishlistInput.value.trim();
+    //if (itemText === "") {
+     //   return; // Do not add empty items
+    //}
 
     //Create a new list item and append it to the wishlist
-    const li = document.createElement('li');
+    //const li = document.createElement('li');
 
     //Create a span to hold ths text
-    const span = document.createElement('span');
-    span.textContent = itemText;
+    //const span = document.createElement('span');
+    //span.textContent = itemText;
 
     //Create a remove button
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = "Remove";
-    removeBtn.classList.add('remove-btn');
+    //const removeBtn = document.createElement('button');
+    //removeBtn.textContent = "Remove";
+    //removeBtn.classList.add('remove-btn');
 
-    removeBtn.addEventListener('click', function() {
-        li.remove();
-    });
+    //removeBtn.addEventListener('click', function() {
+     //   li.remove();
+    //});
 
-    li.appendChild(removeBtn);
-    li.appendChild(span);
+    //li.appendChild(removeBtn);
+    //li.appendChild(span);
 
 
-    wishlist.appendChild(li);
-    wishlistInput.value = ""; // Clear the input field after adding     
-});
+    //wishlist.appendChild(li);
+  //  wishlistInput.value = ""; // Clear the input field after adding     
+//});
 
 //feature 4 : Form handling and validation
 const contactForm = document.getElementById('contact-form');
@@ -95,4 +95,65 @@ contactForm.addEventListener('submit', function(event) {
     formFeedback.style.color = "green";
     contactForm.reset();
     return;
+});
+
+// Feature 5 : local storage persistence for wishlist items
+const wishlistInput = document.getElementById('wishlist-input');
+const wishlistAddBtn = document.getElementById('wishlist-add-btn');
+const wishlist = document.getElementById('wishlist');
+
+// Load wishlist items from local storage on page load or start with an empty array if none exist
+let wishlistItems = JSON.parse(localStorage.getItem('wishlistItems')) || [];
+
+//Renders one <li> for  a given item text
+function renderWishlistItem(itemText) {
+    const li = document.createElement('li');
+
+    //Create a span to hold ths text
+    const span = document.createElement('span');
+    span.textContent = itemText;
+
+    //Create a remove button
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = "Remove";
+    removeBtn.classList.add('remove-btn');
+
+    removeBtn.addEventListener('click', function() {
+        li.remove();
+
+        // Remove the item from the wishlistItems array then resave to local storage
+        wishlistItems = wishlistItems.filter(function(item) {
+            return item !== itemText;
+        });
+
+        localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+        
+    });
+
+    li.appendChild(removeBtn);
+    li.appendChild(span);
+
+    wishlist.appendChild(li);
+}
+
+// Render all wishlist items on page load
+wishlistItems.forEach(function(itemText) {
+    renderWishlistItem(itemText);
+});
+
+wishlistAddBtn.addEventListener('click', function() {
+    const itemText  = wishlistInput.value.trim();
+    if (itemText === "") {
+        return; // Do not add empty items
+    }
+
+    // Add the item to the wishlistItems array and update local storage
+    wishlistItems.push(itemText);
+    localStorage.setItem('wishlistItems', JSON.stringify(wishlistItems));
+
+    // Render the new item
+    renderWishlistItem(itemText);
+
+    // Clear the input field
+    wishlistInput.value = "";
 });
