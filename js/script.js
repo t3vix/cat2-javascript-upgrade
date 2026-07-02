@@ -30,6 +30,41 @@ const services = [
 const servicesList = document.getElementById('services-list');
 services.forEach(service => {
     const li =  document.createElement('li');
-    li.innerHTML = `<strong>${service.name}</strong>`;
+    li.innerHTML = `<strong>${service.name}</strong> - ${service.description}`;
     servicesList.appendChild(li);
+});
+
+// Feature 3 : Wishlist Functionality
+const wishlistInput = document.getElementById('wishlist-input');
+const wishlistAddBtn = document.getElementById('wishlist-add-btn');
+const wishlist = document.getElementById('wishlist');
+
+wishlistAddBtn.addEventListener('click', function() {
+    const itemText  = wishlistInput.value.trim();
+    if (itemText === "") {
+        return; // Do not add empty items
+    }
+
+    //Create a new list item and append it to the wishlist
+    const li = document.createElement('li');
+
+    //Create a span to hold ths text
+    const span = document.createElement('span');
+    span.textContent = itemText;
+
+    //Create a remove button
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = "Remove";
+    removeBtn.classList.add('remove-btn');
+
+    removeBtn.addEventListener('click', function() {
+        li.remove();
+    });
+    
+    li.appendChild(removeBtn);
+    li.appendChild(span);
+
+
+    wishlist.appendChild(li);
+    wishlistInput.value = ""; // Clear the input field after adding     
 });
