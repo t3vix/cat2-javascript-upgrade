@@ -507,3 +507,23 @@ footer ul li a:hover {
   background: var(--clr-accent-glow);
 }
 
+#banner-caption.hidden{
+  max-height: 0;  
+  overflow: hidden;
+  opacity: 0;
+}
+
+#banner-caption{
+    max-height: 200px;
+  opacity: 1;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  margin-top: 0.75rem;
+  color: var(--clr-accent);
+  font-style: italic;
+
+  }
+
+  #banner-img{
+    cursor: pointer;
+  }
+
